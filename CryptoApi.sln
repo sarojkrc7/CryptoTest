@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoApi", "CryptoApi\CryptoApi.csproj", "{E09D1AA6-CED0-4CD6-B7C9-5571BF99F76C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{2A7C49D8-11F5-49F8-81A2-17A0713D8385}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RsaKeyGen", "RsaKeyGen\RsaKeyGen.csproj", "{D443C031-21AD-4962-8901-F9A5096C2BFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E09D1AA6-CED0-4CD6-B7C9-5571BF99F76C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E09D1AA6-CED0-4CD6-B7C9-5571BF99F76C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E09D1AA6-CED0-4CD6-B7C9-5571BF99F76C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E09D1AA6-CED0-4CD6-B7C9-5571BF99F76C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A7C49D8-11F5-49F8-81A2-17A0713D8385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A7C49D8-11F5-49F8-81A2-17A0713D8385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A7C49D8-11F5-49F8-81A2-17A0713D8385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A7C49D8-11F5-49F8-81A2-17A0713D8385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D443C031-21AD-4962-8901-F9A5096C2BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D443C031-21AD-4962-8901-F9A5096C2BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D443C031-21AD-4962-8901-F9A5096C2BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D443C031-21AD-4962-8901-F9A5096C2BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD7A1A25-6BD0-40ED-8C55-22767C529218}
+	EndGlobalSection
+EndGlobal
