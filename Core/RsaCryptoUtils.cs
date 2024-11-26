@@ -375,20 +375,39 @@ namespace Core
         /// <returns>An array of byte.</returns>
         private static byte[] ApplyCipher(byte[] data, IBufferedCipher cipher)
         {
+            //using var inputStream = new MemoryStream(data);
+            //var outputBytes = new List<byte>();
+
+            //var blockSize = cipher.GetBlockSize();
+            //var buffer = new byte[blockSize];
+
+            //int index;
+            //while ((index = inputStream.Read(buffer, 0, blockSize)) > 0)
+            //{
+            //    var cipherBlock = cipher.DoFinal(buffer, 0, index);
+            //    outputBytes.AddRange(cipherBlock);
+            //}
+
+            //return outputBytes.ToArray();
+
+
+            // Determine the maximum input block size for RSA decryption
+            int inputBlockSize = cipher.GetBlockSize();
             using var inputStream = new MemoryStream(data);
-            var outputBytes = new List<byte>();
+            using var outputStream = new MemoryStream();
+            var buffer = new byte[inputBlockSize];
 
-            var blockSize = cipher.GetBlockSize();
-            var buffer = new byte[blockSize];
-
-            int index;
-            while ((index = inputStream.Read(buffer, 0, blockSize)) > 0)
+            int bytesRead;
+            while ((bytesRead = inputStream.Read(buffer, 0, buffer.Length)) > 0)
             {
-                var cipherBlock = cipher.DoFinal(buffer, 0, index);
-                outputBytes.AddRange(cipherBlock);
+                // Decrypt the block using the cipher
+                var cipherBlock = cipher.DoFinal(buffer, 0, bytesRead);
+                // Write the decrypted block to the output stream
+                outputStream.Write(cipherBlock, 0, cipherBlock.Length);
             }
 
-            return outputBytes.ToArray();
+            // Return the fully decrypted data as a byte array
+            return outputStream.ToArray();
         }
 
     }
