@@ -48,5 +48,46 @@ namespace CryptoApi.Controllers
                 return BadRequest(new { Message = "Failed to import key." });
             }
         }
+
+        [HttpGet("encryption-from-key")]
+        public async Task<IActionResult> EncryptionFromKey(string plainText, string secretKey)
+        {
+            try
+            {
+
+                if (string.IsNullOrWhiteSpace(plainText))
+                    return BadRequest(new { Message = "Input string can not be empty" });
+                if (string.IsNullOrWhiteSpace(secretKey))
+                    return BadRequest(new { Message = "Key can not be empty" });
+
+                var cypherText = MypayCrypto.EncryptionFromKey(plainText,secretKey);
+
+                return await Task.FromResult(Ok(new GenerateRsaSignatureResponse { Response = cypherText }));
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { Message = "Failed to import key." });
+            }
+        }
+
+        [HttpGet("decryption-from-key")]
+        public async Task<IActionResult> DecryptionFromkey(string cypherText, string secretKey)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cypherText))
+                    return BadRequest(new { Message = "Input string can not be empty" });
+                if (string.IsNullOrWhiteSpace(secretKey))
+                    return BadRequest(new { Message = "Key can not be empty" });
+
+                var plainText = MypayCrypto.DecryptionFromKey(cypherText,secretKey);
+
+                return await Task.FromResult(Ok(new GenerateRsaSignatureResponse { Response = plainText }));
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { Message = "Failed to import key." });
+            }
+        }
     }
 }
