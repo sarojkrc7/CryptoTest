@@ -22,6 +22,11 @@ namespace Core
         public const string AlgorithmRsaNoneOaepWithSha256AndMgf1Padding = "RSA/NONE/OAEPWITHSHA256ANDMGF1PADDING";
 
         /// <summary>
+        /// Encryption algorithm: RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING
+        /// </summary>
+        public const string AlgorithmRsaEcbOaepWithSha256AndMgf1Padding = "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING";
+
+        /// <summary>
         /// Signing algorithm: SHA-256withRSA
         /// </summary>
         public const string AlgorithmSHA256withRSA = "SHA-256withRSA";

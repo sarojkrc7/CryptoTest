@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Core
@@ -262,5 +263,60 @@ namespace Core
                 return "error";
             }
         }
+
+        public static string MinifyJsonPayload(string json)
+        {
+            try
+            {
+                var jsonElement = JsonSerializer.Deserialize<JsonElement>(json);
+                string minifiedJson = JsonSerializer.Serialize(jsonElement);
+                return minifiedJson;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
+        public static string CompressJsonPayload(string json)
+        {
+            try
+            {
+                // Parse and serialize back to minify
+                var jsonDoc = JsonDocument.Parse(json);
+                string compressedJson = JsonSerializer.Serialize(jsonDoc.RootElement);
+
+                //string compressedJson = json.Replace(" ", "").Replace("\n", "").Replace("\\", "");
+                return compressedJson;    
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+        public static (string privateKey, string publicKey) GenerateRsaKeyPair()
+        {
+            using (var rsa = RSA.Create(2048))
+            {
+                var privateKey = ExportPrivateKey(rsa);
+                var publicKey = ExportPublicKey(rsa);
+                return (privateKey.Trim().Replace("\\n","\n"), publicKey.Trim().Replace("\\n","\n"));
+            }
+        }
+        private static string ExportPrivateKey(RSA rsa)
+        {
+            var privateKeyBytes = rsa.ExportPkcs8PrivateKey();
+            return $"-----BEGIN PRIVATE KEY-----\n{Convert.ToBase64String(privateKeyBytes, Base64FormattingOptions.InsertLineBreaks)}\n-----END PRIVATE KEY-----";
+        }
+
+        private static string ExportPublicKey(RSA rsa)
+        {
+            var publicKeyBytes = rsa.ExportSubjectPublicKeyInfo();
+            return $"-----BEGIN PUBLIC KEY-----\n{Convert.ToBase64String(publicKeyBytes, Base64FormattingOptions.InsertLineBreaks)}\n-----END PUBLIC KEY-----";
+        }
+
+
+
+
     }
 }

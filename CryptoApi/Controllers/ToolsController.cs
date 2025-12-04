@@ -106,5 +106,27 @@ namespace CryptoApi.Controllers
             }
         }
 
+        [HttpPost("decrypt-base64-rsa-ecb-oaepwithsha256andmgf1padding")]
+        public async Task<IActionResult> DecryptDataEcb([FromForm] DecryptRsaNoneOaepSha256Mgf1PaddingRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var pvtKey = RsaCryptoUtils.ImportPrivateKeyPem(request.PrivateKey);
+                var cipheredBytes = Convert.FromBase64String(request.CipheredData);
+
+                var decipheredBytes = RsaCryptoUtils.DecryptData(cipheredBytes, pvtKey, RsaCryptoUtils.AlgorithmRsaEcbOaepWithSha256AndMgf1Padding);
+
+                var plainText = Encoding.UTF8.GetString(decipheredBytes);
+
+                return await Task.FromResult(Ok(new DecryptRsaNoneOaepSha256Mgf1PaddingResponse { DecryptedData = plainText }));
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { Message = "Failed to import key." });
+            }
+        }
     }
 }
